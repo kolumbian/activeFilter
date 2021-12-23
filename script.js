@@ -1,35 +1,61 @@
 let doc = document;
 
+// let filterContainer = doc.createElement('div');
 let filterContainer = doc.querySelector('.filterContainer');
 
-const languageFilters = {
-    'Russian Filter': '-ru',
-    'English Filter': '-eu',
-    'Spyware Filter': '-analysts',
-    'Social media': '-social',
-    'Spanish/Portuguese Filter': '-is-pr',
-    'Deutsch Filter': '-gu',
-    'Japanese Filter': '-jp',
-    'Dutch Filter': '-gl',
-    'Turkish Filter': '-tr',
-    'Annoyances Filter': '-stimulus',
-    'Chinese Filter': '-kt',
-    'Czech/Slovak Filter': '-cz-sk',
-    'French Filter': '-fr',
-    'Polish Filter': '-pl',
-    'African Filter': '-af',
-    'Indian Filter': '-in',
-    'Korean Filter': '-kr',
-};
+let languageFilters = [
+    'Russian Filter',
+    'English Filter',
+    'Spyware Filter',
+    'Social media',
+    'Spanish/Portuguese Filter',
+    'Deutsch Filter',
+    'Japanese Filter',
+    'Dutch Filter',
+    'Turkish Filter',
+    'Annoyances Filter',
+    'Chinese Filter',
+    'Czech/Slovak Filter',
+    'French Filter',
+    'Polish Filter',
+    'African Filter',
+    'Indian Filter',
+    'Korean Filter',
+];
+
+let shortLanguage = [
+    '-ru',
+    '-eu',
+    '-analysts',
+    '-social',
+    '-is-pr',
+    '-gu',
+    '-jp',
+    '-gl',
+    '-tr',
+    '-stimulus',
+    '-kt',
+    '-cz-sk',
+    '-fr',
+    '-pl',
+    '-af',
+    '-in',
+    '-kr',
+];
+
+function addFilterBlocks() {
+    for (let i = 0; i < languageFilters.length; i++) {
+        filterContainer.insertAdjacentHTML('beforeend',`<div class="filterBlock"> <div class="filterName">${languageFilters[i]} <div class="banner${shortLanguage[i]}_adlock"></div></div> <div class="switchBox${shortLanguage[i]}"> <div class="switchCircle"></div> <div class="switchBackground"></div> </div> </div>`);
+    }
+}
 
 function isNotVisible(el) {return el.offsetWidth === 0;}
 
-function addAndCheck() {
-    for (let i in languageFilters) {
-        filterContainer.insertAdjacentHTML('beforeend',`<div class="filterBlock"> <div class="filterName">${(i)} <div class="banner${languageFilters[i]}_adlock"></div></div> <div class="switchBox${languageFilters[i]}"> <div class="switchCircle"></div> <div class="switchBackground"></div> </div> </div>`);
-
-        let switchBox = doc.querySelector(`.switchBox${languageFilters[i]}`);
-        let bannerBlock = doc.querySelector(`.banner${languageFilters[i]}_adlock`);
+function toggleSwitch() {
+    for (let i = 0; i < shortLanguage.length; i++) {
+        
+        let switchBox = doc.querySelector(`.switchBox${shortLanguage[i]}`);
+        let bannerBlock = doc.querySelector(`.banner${shortLanguage[i]}_adlock`);
 
         if (isNotVisible(bannerBlock)) {
             switchBox.classList.add('active');
@@ -37,4 +63,5 @@ function addAndCheck() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', addAndCheck);
+document.addEventListener('DOMContentLoaded', addFilterBlocks);
+document.addEventListener('DOMContentLoaded', toggleSwitch);
